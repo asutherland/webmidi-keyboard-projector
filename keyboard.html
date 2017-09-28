@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>keyboard renderer frame</title>
+  <!-- 
+    This is the frame/page that displays the keyboard projection bits.  It
+    may also be rendered inside the control page to better understand what's
+    being projected on the projector display.
+
+    All communication and control of this page happens over BroadcastChannel.
+    The actual MIDI input/etc. happens in the control page which is where
+    permission prompts might happen/etc.
+  -->
+  <script type="application/javascript" src="js/keyboard.js"></script>
+  <style>
+    html, body {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+    }
+
+    #keyboard-container {
+      width: 100%;
+      height: 100%;
+    }
+    #keyboard-container.projector-backwards {
+      transform: rotate(180deg);
+      transform-origin: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="keyboard-container"></div>
+</body>
+</html>
