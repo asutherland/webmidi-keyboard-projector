@@ -75,8 +75,14 @@ function renderKeyboard() {
       continue;
     }
 
-    const x1 = containerWidth * iWhite / numWhiteKeys;
-    const x2 = containerWidth * (iWhite + 1) / numWhiteKeys;
+    const leftShift = currentConfig.paddingLeft + currentConfig.perspectiveFactor * (currentConfig.centerVisibleNote - firstVisibleNote);
+    const keyboardWidth = containerWidth - (currentConfig.paddingLeft + currentConfig.paddingRight) -
+          currentConfig.perspectiveFactor * (currentConfig.centerVisibleNote - firstVisibleNote);
+    
+    const perspectiveOffset = (note - currentConfig.centerVisibleNote) * currentConfig.perspectiveFactor;
+
+    const x1 = leftShift + keyboardWidth * iWhite / numWhiteKeys + perspectiveOffset;
+    const x2 = leftShift + keyboardWidth * (iWhite + 1) / numWhiteKeys + perspectiveOffset;
     const key = document.createElement("div");
     key.id = "note" + note;
     key.style.position = "absolute";
@@ -85,7 +91,7 @@ function renderKeyboard() {
     key.style.width = (x2 - x1) + "px";
     key.style.height = (currentConfig.whiteKeyBottom - currentConfig.whiteKeyTop) + "px";
     key.style.backgroundColor = currentConfig.unpressedColor;
-    key.style.border = "2px solid blue";
+    //key.style.border = "2px solid blue";
 
     root.appendChild(key);
     iWhite++;

@@ -15,10 +15,14 @@ function ensureConfig() {
     currentConfig = {
       projectorTransform: "",
       numWhiteKeys: 40,
-      firstVisibleNote: 38,
-      lastVisibleNote: 89,
-      whiteKeyTop: 360,
-      whiteKeyBottom: 660,
+      paddingLeft: 160,
+      paddingRight: 332,
+      firstVisibleNote: 21,
+      centerVisibleNote: 71,
+      perspectiveFactor: 0.3,
+      lastVisibleNote: 108,
+      whiteKeyTop: 0,
+      whiteKeyBottom: 1200,
       unpressedColor: "white",
       channelColors: [
         "purple",
