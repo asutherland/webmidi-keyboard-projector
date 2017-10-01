@@ -93,7 +93,17 @@ function renderKeyboard() {
     key.style.backgroundColor = currentConfig.unpressedColor;
     //key.style.border = "2px solid blue";
 
+    const keyLabel = document.createElement("div");
+    keyLabel.innerText = info.name;
+    keyLabel.style.position = "absolute";
+    keyLabel.style.top = currentConfig.keyLabelsTop + "px";
+    keyLabel.style.left = x1 + "px";
+    keyLabel.style.width = (x2 - x1) + "px";
+    keyLabel.style.height = "20px";
+    keyLabel.style.textAlign = "center";
+
     root.appendChild(key);
+    root.appendChild(keyLabel);
     iWhite++;
   }
 }

@@ -19,6 +19,7 @@ function ensureConfig() {
       paddingRight: 332,
       firstVisibleNote: 21,
       centerVisibleNote: 71,
+      keyLabelsTop: 360,
       perspectiveFactor: 0.3,
       lastVisibleNote: 108,
       whiteKeyTop: 0,
