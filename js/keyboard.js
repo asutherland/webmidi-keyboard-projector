@@ -42,12 +42,20 @@ function getNoteInfo(note) {
   const octave = Math.floor(note / 12) - 1;
   const phase = note % 12;
   const info = PHASE_INFO[phase];
-  const whiteIndex = info.white + (octave + 1) * 7;
+  let before, after, whiteIndex;
+  if (info.black) {
+    before = getNoteInfo(note - 1);
+    after = getNoteInfo(note + 1);
+    whiteIndex = before.whiteIndex + 0.5;
+  } else {
+    whiteIndex = info.white + (octave + 1) * 7;
+  }
+  
   return {
     octave,
     phase,
     whiteIndex,
-    info,
+    info
   };
 }
 
@@ -70,9 +78,19 @@ function renderKeyboard() {
   for (let note = firstVisibleNote; note <= lastVisibleNote; note++) {
     const { octave, phase, info } = getNoteInfo(note);
 
+    let keyTop, keyBottom, effWhite, keyLabelsTop;
     // skip black keys for now
     if (info.white === null) {
-      continue;
+      effWhite = iWhite - 0.6;
+      keyTop = currentConfig.blackKeyTop;
+      keyBottom = currentConfig.blackKeyBottom;
+      keyLabelsTop = currentConfig.blackKeyLabelsTop;
+    } else {
+      effWhite = iWhite;
+      iWhite++;
+      keyTop = currentConfig.whiteKeyTop;
+      keyBottom = currentConfig.whiteKeyBottom;
+      keyLabelsTop = currentConfig.whiteKeyLabelsTop;
     }
 
     const leftShift = currentConfig.paddingLeft + currentConfig.perspectiveFactor * (currentConfig.centerVisibleNote - firstVisibleNote);
@@ -81,22 +99,22 @@ function renderKeyboard() {
     
     const perspectiveOffset = (note - currentConfig.centerVisibleNote) * currentConfig.perspectiveFactor;
 
-    const x1 = leftShift + keyboardWidth * iWhite / numWhiteKeys + perspectiveOffset;
-    const x2 = leftShift + keyboardWidth * (iWhite + 1) / numWhiteKeys + perspectiveOffset;
+    const x1 = leftShift + keyboardWidth * effWhite / numWhiteKeys + perspectiveOffset;
+    const x2 = leftShift + keyboardWidth * (effWhite + 1) / numWhiteKeys + perspectiveOffset;
     const key = document.createElement("div");
     key.id = "note" + note;
     key.style.position = "absolute";
-    key.style.top = currentConfig.whiteKeyTop + "px";
+    key.style.top = keyTop + "px";
     key.style.left = x1 + "px";
     key.style.width = (x2 - x1) + "px";
-    key.style.height = (currentConfig.whiteKeyBottom - currentConfig.whiteKeyTop) + "px";
+    key.style.height = (keyBottom - keyTop) + "px";
     key.style.backgroundColor = currentConfig.unpressedColor;
     //key.style.border = "2px solid blue";
 
     const keyLabel = document.createElement("div");
     keyLabel.innerText = info.name;
     keyLabel.style.position = "absolute";
-    keyLabel.style.top = currentConfig.keyLabelsTop + "px";
+    keyLabel.style.top = keyLabelsTop + "px";
     keyLabel.style.left = x1 + "px";
     keyLabel.style.width = (x2 - x1) + "px";
     keyLabel.style.height = "20px";
@@ -111,7 +129,7 @@ function renderKeyboard() {
       const chanKey = document.createElement("div");
       chanKey.id = "note" + note + "-chan" + iChan;
       chanKey.style.position = "absolute";
-      chanKey.style.top = (currentConfig.keyLabelsTop - LABEL_SPACING - (iChan * CHAN_BAR_SIZE)) + "px";
+      chanKey.style.top = (keyLabelsTop - LABEL_SPACING - (iChan * CHAN_BAR_SIZE)) + "px";
       chanKey.style.left = x1 + "px";
       chanKey.style.width = (x2 - x1) + "px";
       chanKey.style.height = CHAN_BAR_SIZE + "px";
@@ -119,8 +137,6 @@ function renderKeyboard() {
     }
 
     root.appendChild(keyLabel);
-
-    iWhite++;
   }
 }
 
