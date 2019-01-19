@@ -120,6 +120,7 @@ function renderKeyboard() {
     keyLabel.style.height = "20px";
     keyLabel.style.textAlign = "center";
     keyLabel.style.fontFamily = "sans-serif";
+    keyLabel.style.color = "white";
 
     root.appendChild(key);
 

@@ -20,7 +20,7 @@ function ensureConfig() {
       firstVisibleNote: 21,
       centerVisibleNote: 71,
       blackKeyLabelsTop: 300,
-      whiteKeyLabelsTop: 360,
+      whiteKeyLabelsTop: 358,
       perspectiveFactor: 0.3,
       lastVisibleNote: 108,
       blackKeyTop: 0,
