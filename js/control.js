@@ -30,7 +30,16 @@ function ensureConfig() {
         "blue",
         "green",
         "red",
-        "orange"
+        "orange",
+        "yellow",
+        "cyan",
+        "magenta",
+        "sienna",
+        "DeepPink",
+        "HotPink",
+        "SpringGreen",
+        "Olive",
+        "DeepSkyBlue"
       ]
     };
   }

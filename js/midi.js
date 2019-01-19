@@ -16,8 +16,11 @@ function initMidi(midiAccess) {
   gMidi = midiAccess;
 
   for (let input of gMidi.inputs.values()) {
-    console.log("listening to MIDI input", input.name);
-    input.onmidimessage = onMidiMessage;
+    // if (input.name === "to-web") {
+    if (input.name === "consolidance") {
+      console.log("listening to MIDI input", input.name);
+      input.onmidimessage = onMidiMessage;
+    }
   }
 
   // TODO: listen on "statechange" event to bind dynamically added devices, etc.

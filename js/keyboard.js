@@ -104,7 +104,22 @@ function renderKeyboard() {
     keyLabel.style.fontFamily = "sans-serif";
 
     root.appendChild(key);
+
+    const LABEL_SPACING = 0;
+    const CHAN_BAR_SIZE = 8;
+    for (let iChan = 0; iChan < 16; iChan++) {
+      const chanKey = document.createElement("div");
+      chanKey.id = "note" + note + "-chan" + iChan;
+      chanKey.style.position = "absolute";
+      chanKey.style.top = (currentConfig.keyLabelsTop - LABEL_SPACING - (iChan * CHAN_BAR_SIZE)) + "px";
+      chanKey.style.left = x1 + "px";
+      chanKey.style.width = (x2 - x1) + "px";
+      chanKey.style.height = CHAN_BAR_SIZE + "px";
+      root.appendChild(chanKey);
+    }
+
     root.appendChild(keyLabel);
+
     iWhite++;
   }
 }
@@ -112,16 +127,19 @@ function renderKeyboard() {
 function setKeyStates(keyStates) {
   for (let { channel, note, velocity} of keyStates) {
     const key = document.getElementById("note" + note);
+    const chanKey = document.getElementById("note" + note + "-chan" + channel);
     if (!key) {
       console.log("no 'note" + note + "' element");
       continue;
     }
 
+    let useKey = chanKey || key;
+
     if (velocity) {
-      console.log("setting key", key, "to", currentConfig.channelColors[channel]);
-      key.style.backgroundColor = currentConfig.channelColors[channel];
+      console.log("setting key", useKey, "to", currentConfig.channelColors[channel]);
+      useKey.style.backgroundColor = currentConfig.channelColors[channel];
     } else {
-      key.style.backgroundColor = currentConfig.unpressedColor;
+      useKey.style.backgroundColor = currentConfig.unpressedColor;
     }
   }
 }
