@@ -105,7 +105,7 @@ function renderKeyboard() {
 
     root.appendChild(key);
 
-    const LABEL_SPACING = 0;
+    const LABEL_SPACING = -12;
     const CHAN_BAR_SIZE = 8;
     for (let iChan = 0; iChan < 16; iChan++) {
       const chanKey = document.createElement("div");
