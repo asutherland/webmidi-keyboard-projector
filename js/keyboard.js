@@ -25,16 +25,16 @@ function updateConfig(config) {
 // XXX okay, yeah, maybe a library would be a smart thing to use...
 const PHASE_INFO = [
   { white: 0,    black: null, name: "C" },
-  { white: null, black: 0,    name: "C#" },
+  { white: null, black: 0,    name: "#" },
   { white: 1,    black: null, name: "D" },
-  { white: null, black: 1,    name: "D#" },
+  { white: null, black: 1,    name: "#" },
   { white: 2,    black: null, name: "E" },
   { white: 3,    black: null, name: "F" },
-  { white: null, black: 3,    name: "F#" },
+  { white: null, black: 3,    name: "#" },
   { white: 4,    black: null, name: "G" },
-  { white: null, black: 4,    name: "G#" },
+  { white: null, black: 4,    name: "#" },
   { white: 5,    black: null, name: "A" },
-  { white: null, black: 5,    name: "A#" },
+  { white: null, black: 5,    name: "#" },
   { white: 6,    black: null, name: "B"}
 ];
 
@@ -125,7 +125,7 @@ function renderKeyboard() {
     root.appendChild(key);
 
     const LABEL_SPACING = -12;
-    const CHAN_BAR_SIZE = 8;
+    const CHAN_BAR_SIZE = 4;
     for (let iChan = 0; iChan < 16; iChan++) {
       const chanKey = document.createElement("div");
       chanKey.id = "note" + note + "-chan" + iChan;
